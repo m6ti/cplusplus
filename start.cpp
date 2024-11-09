@@ -1,29 +1,52 @@
 // ask for a person's name, and generate a framed greeting
 #include <iostream>
 #include <string>
+
+using std::cout;
+
 int main()
 {
-std::cout << "Please enter your first name: ";
-std::string name;
-std::cin >> name;
-// build the message that we intend to write
-const std::string greeting = "Hello, " + name + "!";
-// build the second and fourth lines of the output
-const std::string spaces(greeting.size(), ' ');
-const std::string second = "* " + spaces + " *";
-// build the first and fifth lines of the output
-const std::string first(second.size(), '*');
-// write it all
-std::cout << std::endl;
-std::cout << first << std::endl;
-std::cout << second << std::endl;
-std::cout << "* " << greeting << " *" << std::endl;
-std::cout << second << std::endl;
-std::cout << first << std::endl;
+    std::cout << "Enter name:";
 
-const std::string exclam = "!";
-const std::string message = exclam + "Hello" + "jj";
-std::cout << message << std::endl;
+    std::string name;
+    std::cin >> name;
 
-return 0;
+    const std::string greeting = "Hello, "+ name + "!";
+
+    // Number of blanks surrounding the greeting
+    const int pad = 1;
+
+    // Total number of rows to write
+    const int rows = pad * 2 + 3;
+
+
+    // Seperate output from the input
+    std::cout << std::endl;
+
+    const std::string::size_type cols = greeting.size() + pad * 2 + 2;
+
+    for ( int r = 0; r != rows ; r ++){
+        // Write a row of output
+        std::string::size_type c = 0;
+
+        while (c != cols){
+            if (r == 0 || r == rows - 1 || c == 0 || c == cols - 1){
+                std::cout << "*";
+                ++c;
+            }
+            else{
+                if (r==pad + 1 && c == pad + 1) {
+                    std::cout << greeting;
+                    c+=greeting.size();
+                }else{
+                    std::cout << " ";
+                    ++c;
+                }
+            }
+        }
+
+        std::cout << std::endl;
+    }
+
+    return 0;
 }
